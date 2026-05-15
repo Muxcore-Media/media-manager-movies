@@ -1,0 +1,11 @@
+{
+  "name": "Movie Manager",
+  "description": "Movie media manager for MuxCore. Handles movie requests, indexer search, and download coordination.",
+  "version": "1.0.0",
+  "icon": "",
+  "author": "MuxCore",
+  "kind": "media_manager",
+  "capabilities": ["media.movie", "media.search", "media.request"],
+  "dependencies": [],
+  "homepage": "https://github.com/Muxcore-Media/media-manager-movies"
+}
