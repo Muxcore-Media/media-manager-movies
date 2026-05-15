@@ -40,7 +40,7 @@ func (m *Module) Info() contracts.ModuleInfo {
 		ID:           "media-manager-movies",
 		Name:         "Movie Manager",
 		Version:      "1.0.0",
-		Kind:         contracts.ModuleKindMediaManager,
+		Kinds:        []contracts.ModuleKind{contracts.ModuleKindMediaManager},
 		Description:  "Handles movie media requests, search, and download coordination",
 		Author:       "MuxCore",
 		Capabilities: []string{"media.movie", "media.search", "media.request"},
@@ -133,7 +133,7 @@ func (m *Module) handleMediaRequested(ctx context.Context, event contracts.Event
 }
 
 func (m *Module) searchIndexers(ctx context.Context, payload RequestPayload) ([]contracts.IndexerResult, error) {
-	entries := m.reg.FindByKind(contracts.ModuleKindProvider)
+	entries := m.reg.FindByKind(contracts.ModuleKindIndexer)
 	if len(entries) == 0 {
 		return nil, fmt.Errorf("no indexer modules registered")
 	}
