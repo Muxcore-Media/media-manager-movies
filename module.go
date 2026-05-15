@@ -48,7 +48,23 @@ func (m *Module) Info() contracts.ModuleInfo {
 }
 
 func (m *Module) Init(ctx context.Context) error {
+	if err := m.reg.RegisterMediaSchema(m.MediaTypeSchema()); err != nil {
+		return fmt.Errorf("register movie schema: %w", err)
+	}
 	return nil
+}
+
+func (m *Module) MediaTypeSchema() contracts.MediaTypeSchema {
+	return contracts.MediaTypeSchema{
+		MediaType: contracts.MediaTypeMovie,
+		ModuleID:  m.Info().ID,
+		Fields: []contracts.MediaFieldSchema{
+			{Key: "tmdb_id", Type: contracts.FieldTypeString, Description: "TheMovieDB ID"},
+			{Key: "imdb_id", Type: contracts.FieldTypeString, Description: "IMDB ID"},
+			{Key: "year", Type: contracts.FieldTypeInt, Description: "Release year"},
+			{Key: "quality", Type: contracts.FieldTypeString, Description: "Quality profile used for the request"},
+		},
+	}
 }
 
 func (m *Module) Start(ctx context.Context) error {
